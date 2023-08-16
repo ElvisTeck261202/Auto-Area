@@ -28,7 +28,7 @@ const getProducts = async (req, res) => {
     const connection = await connect();
 
     try{
-        const [rows] = await connection.query(`SELECT * FROM PRODUCTS`);
+        const [rows] = await connection.query(`SELECT P.NAME "PRODUCT", C.NAME "CATEOGRY", P.IMAGE, P.PRICE FROM PRODUCTS P INNER JOIN CATEGORIES C ON P.ID_CATEGORY = C.ID`);
         res.json(rows);
     }
     catch(e){
@@ -60,7 +60,7 @@ const getProduct = async (req, res) => {
     const connection = await connect();
 
     try{
-        const [rows] = await connection.query(`SELECT * FROM PRODUCTS WHERE ID = ?`, [req.params.id]);
+        const [rows] = await connection.query(`SELECT P.NAME "PRODUCT", C.NAME "CATEGORY", B.NAME "BRANCH", S.NAME "SUPPLIER", P.DESCRIPTION, P.PRICE, P.IMAGE, P.QUANTITY FROM PRODUCTS P JOIN CATEGORIES C ON P.ID_CATEGORY = C.ID JOIN SUPPLIERS S ON P.ID_SUPPLIER = S.ID JOIN BRANCHES B ON P.ID_BRANCH = B.ID AND P.ID = ?`, [req.params.id]);
         res.json(rows)
     }
     catch(e){

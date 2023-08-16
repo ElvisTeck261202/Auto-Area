@@ -11,6 +11,10 @@ const {addPurchase, getPurchase} = require('../controllers/purchases');
 const {addVehicle, getVehicle, updateVehicle, deleteVehicle} = require('../controllers/vehicle');
 const {addOwn, getOwn} = require('../controllers/user_owns');
 const {addCard, getCard, getCards, updateCard, deleteCard} = require('../controllers/cards');
+const {addFavorite, getFavorites, deleteFavorite} = require('../controllers/favorites');
+const {addCompatibility, getCompatibility, updateCompatibility, deleteCompatibility} = require('../controllers/compatible_with');
+const {addP_product, getP_product} = require('../controllers/purchases_products');
+const {addCart, getCart, deleteCart} = require('../controllers/cart');
 
 const router = Router();
 
@@ -71,5 +75,25 @@ router.get('/card/:id', getCards);
 router.get('/card/:id_u/:id', getCard);
 router.put('/card/:id', updateCard);
 router.delete('/card/:id', deleteCard);
+
+//Rutas para los favoritos
+router.post('/fav', addFavorite);
+router.get('/fav/:id', getFavorites);
+router.delete('/fav/:id', deleteFavorite);
+
+//Rutas para las compatibilidades
+router.post('/compatible', addCompatibility);
+router.get('/compatible/:id', getCompatibility);
+router.put('/compatible/:id', updateCompatibility);
+router.delete('/compatible/:id', deleteCompatibility);
+
+//Rutas para el historial de compras
+router.post('/history', addP_product);
+router.get('/history/:id', getP_product);
+
+//Rutas para el carrito de compras
+router.post('/cart', addCart);
+router.get('/cart/:id', getCart);
+router.delete('/cart/:id', deleteCart);
 
 module.exports = router;
