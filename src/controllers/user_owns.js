@@ -18,7 +18,7 @@ const getOwn = async (req, res) => {
 
     try{
         const [rows] = await connection.query(`SELECT U.ID_USER, V.NAME, V.BRANCH, V.YEAR FROM USER_OWNS U INNER JOIN VEHICLES V ON U.ID_USER = ? AND U.ID_VEHICLE = V.ID;`, [req.params.id]);
-        res.json(rows)
+        res.json(rows[0])
     }
     catch(e){
         res.json(e);

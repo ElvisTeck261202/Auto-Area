@@ -1,0 +1,131 @@
+create database auto_area;
+
+
+use auto_area;
+
+create table Users (
+	id int primary key auto_increment,
+    name varchar(50),
+    street varchar(200),
+    ZIP int,
+    email varchar(100),
+    password varchar(50),
+    phone long
+    );
+    
+create table Products (
+	id int primary key auto_increment,
+    name varchar(50),
+    id_supplier int,
+    id_branch int,
+    id_category int,
+    quantity int,
+    price float,
+    description varchar(500),
+    image varchar(500),
+    image_public_id varchar(500)
+    );
+    
+create table Purchases (
+	id int primary key auto_increment,
+    id_user int,
+    subtotal float,
+    total float, 
+    IVA float,
+    date date
+    );
+    
+create table Favorites (
+	id int primary key auto_increment,
+    id_product int,
+    id_user int
+    );
+    
+create table Categories (
+	id int primary key auto_increment,
+    Name varchar(50)
+    );
+    
+create table Branches (
+	id int primary key auto_increment,
+    Name varchar(50)
+    );
+    
+create table Purchase_Products (
+	id int primary key auto_increment,
+    id_purchases int,
+    id_product int,
+    quantity int
+    );
+
+create table Suppliers (
+	id int primary key auto_increment,
+    name varchar(50),
+    residence varchar(50),
+    rfc varchar(50)
+    );
+    
+create table compatible_with (
+	id int primary key auto_increment,
+    id_vehicle int,
+    id_product int
+    );
+    
+create table vehicles (
+	id int primary key auto_increment,
+    name varchar(50),
+    branch varchar(50),
+    year int
+    );
+
+create table user_owns (
+	id int primary key auto_increment,
+    id_user int,
+    id_vehicle int
+    );
+    
+create table cards (
+	id int primary key auto_increment,
+    id_user int,
+    name varchar(50),
+    cvv int,
+    number varchar(20),
+    date varchar(5),
+    residence varchar(50)
+    );
+   
+create table cart (
+	id int primary key auto_increment,
+    id_user int,
+    id_product int,
+    quantity int,
+    total float
+    );
+    
+ALTER TABLE Products ADD FOREIGN KEY (id_supplier) REFERENCES Suppliers (id);
+
+ALTER TABLE Products ADD FOREIGN KEY (id_branch) REFERENCES Branches(id);
+
+ALTER TABLE Products ADD FOREIGN KEY (id_category) REFERENCES Categories(id); 
+
+ALTER TABLE Purchase_products ADD FOREIGN KEY (id_purchases) REFERENCES Purchases(id);
+
+ALTER TABLE Purchase_products ADD FOREIGN KEY (id_product) REFERENCES Products(id);
+
+ALTER TABLE Favorites ADD FOREIGN KEY (id_product) REFERENCES Products(id);
+
+ALTER TABLE Favorites ADD FOREIGN KEY (id_user) REFERENCES Users(id);
+
+ALTER TABLE Compatible_with ADD FOREIGN KEY (id_vehicle) REFERENCES Vehicles(id);
+
+ALTER TABLE Compatible_with ADD FOREIGN KEY (id_product) REFERENCES Products(id);
+
+ALTER TABLE Cards ADD FOREIGN KEY (id_user) REFERENCES Users(id);
+
+ALTER TABLE User_owns ADD FOREIGN KEY (id_user) REFERENCES Users(id);
+
+ALTER TABLE User_owns ADD FOREIGN KEY (id_vehicle) REFERENCES Vehicles(id);
+
+ALTER TABLE cart ADD FOREIGN KEY (id_user) REFERENCES Users(id);
+
+ALTER TABLE cart ADD FOREIGN KEY (id_product) REFERENCES Products(id);

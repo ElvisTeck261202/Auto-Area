@@ -18,7 +18,7 @@ const getP_product = async (req, res) => {
 
     try{
         const [rows] = await connection.query(`SELECT P.NAME "PRODUCT", P.PRICE, PP.QUANTITY FROM PURCHASE_PRODUCTS PP JOIN PRODUCTS P ON PP.ID_PRODUCT = P.ID JOIN PURCHASES PU ON PU.ID = PP.ID_PURCHASES AND PU.ID_USER = ?`, [req.params.id]);
-        res.json(rows)
+        res.json(rows[0])
     }
     catch(e){
         res.json(e);

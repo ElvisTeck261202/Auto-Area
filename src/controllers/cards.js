@@ -30,7 +30,7 @@ const getCard = async (req, res) => {
 
     try{
         const [rows] = await connection.query(`SELECT * FROM CARDS WHERE ID_USER = ? AND ID = ?`, [req.params.id_u, req.params.id]);
-        res.json(rows);
+        res.json(rows[0]);
     }
     catch(e){
         res.json(e);

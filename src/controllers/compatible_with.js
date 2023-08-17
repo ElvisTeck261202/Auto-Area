@@ -18,7 +18,7 @@ const getCompatibility = async (req, res) => {
 
     try{
         const [rows] = await connection.query(`SELECT C.ID, V.NAME "VEHICLE", P.NAME "PRODUCT" FROM COMPATIBLE_WITH C JOIN VEHICLES V ON C.ID_VEHICLE = V.ID JOIN PRODUCTS P ON C.ID_PRODUCT = P.ID AND C.ID = ?`, [req.params.id]);
-        res.json(rows);
+        res.json(rows[0]);
     }
     catch(e){
         res.json(e);

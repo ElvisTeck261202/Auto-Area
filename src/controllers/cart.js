@@ -20,7 +20,7 @@ const getCart = async (req, res) => {
 
     try{
         const [rows] = await connection.query(`SELECT P.NAME "PRODUCT", P.PRICE, C.QUANTITY, C.TOTAL FROM CART C INNER JOIN PRODUCTS P ON C.ID_PRODUCT = P.ID AND C.ID_USER = ?`, [req.params.id]);
-        res.json(rows);
+        res.json(rows[0]);
     }
     catch(e){
         res.json(e);

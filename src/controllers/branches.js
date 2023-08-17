@@ -36,7 +36,7 @@ const getBranch = async (req, res) => {
 
     try{
         const [rows] = await connection.query(`SELECT * FROM BRANCHES WHERE ID = ?`, [req.params.id]);
-        res.json(rows);
+        res.json(rows[0]);
     }
     catch(e){
         res.json(e);
