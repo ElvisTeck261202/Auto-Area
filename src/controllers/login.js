@@ -4,10 +4,10 @@ const Login = async(req, res) => {
 
     const connection = await connect();
 
-    const {name, pass} = req.body
+    const {email, pass} = req.body
 
     try{
-        const[rows] = await connection.query(`SELECT * FROM USERS WHERE NAME = "${name}" AND PASSWORD = "${pass}"`);
+        const[rows] = await connection.query(`SELECT * FROM USERS WHERE EMAIL = "${email}" AND PASSWORD = "${pass}"`);
         if (rows.length == 0){
             res.json({msg: 'NULL'});
         }
