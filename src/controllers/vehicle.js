@@ -6,7 +6,7 @@ const addVehicle = async (req, res) => {
 
     try{
         const [rows] = await connection.query(`INSERT INTO VEHICLES VALUES (NULL, "${name}", "${branch}", ${year})`);
-        res.json({id:rows.id , ... req.body});
+        res.json({id:rows.insertId , ... req.body});
     }
     catch(e){
         res.json(e);

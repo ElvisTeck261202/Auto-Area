@@ -12,7 +12,7 @@ const Login = async(req, res) => {
             res.json({msg: 'NULL'});
         }
         else{
-            res.json({msg:'Ok', usr: rows[0].ID});
+            res.json({msg:'Ok', id: rows[0].id});
         }
     }
     catch(e){

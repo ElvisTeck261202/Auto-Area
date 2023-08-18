@@ -7,7 +7,7 @@ const SignUp = async(req, res) => {
     try{
         const[rows] = await connection.query(`INSERT INTO Users VALUES(NULL, "${name}", "${street}", "${ZIP}", "${email}", "${pass}", ${phone})`);
         res.json({
-            id:rows.insertId, ...req.body
+            id:rows.id, ...req.body
         });
     }
     catch(e){
