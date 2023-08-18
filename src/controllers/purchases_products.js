@@ -17,8 +17,20 @@ const getP_product = async (req, res) => {
     const connection = await connect();
 
     try{
-        const [rows] = await connection.query(`SELECT P.NAME "PRODUCT", P.IMAGE, PP.QUANTITY, PU.TOTAL, PU.DATE FROM PURCHASE_PRODUCTS PP JOIN PRODUCTS P ON PP.ID_PRODUCT = P.ID JOIN PURCHASES PU ON PU.ID = PP.ID_PURCHASES AND PU.ID_USER = ?`, [req.params.id]);
-        res.json(rows)
+        const [rows] = await connection.query(`SELECT P.NAME "PRODUCT", P.IMAGE, PP.QUANTITY, PU.TOTAL, PU.DATE, PU.ID FROM PURCHASE_PRODUCTS PP JOIN PRODUCTS P ON PP.ID_PRODUCT = P.ID JOIN PURCHASES PU ON PU.ID = PP.ID_PURCHASES AND PU.ID_USER = ?`, [req.params.id]);
+        const groupedData = {};
+        rows.forEach(item => {
+            const itemId = item.ID;
+            if (!groupedData[itemId]) {
+                groupedData[itemId] = [];
+            }
+            groupedData[itemId].push(item);
+        });
+        
+        // Convert the grouped data into a response object
+        const response = Object.entries(groupedData).map(([id, items]) => ({ [id]: items }));
+        
+        res.json(response);
     }
     catch(e){
         res.json(e);

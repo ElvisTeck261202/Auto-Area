@@ -8,7 +8,7 @@ const {AddCategory, getCategory, getCategories, UpdateCategory, DeleteCategory} 
 const {getUser, UpdateUser, DeleteUser} = require('../controllers/user');
 const {addProduct, getProducts, deleteProduct, getProduct, updateProduct} = require('../controllers/products');
 const {addPurchase, getPurchase} = require('../controllers/purchases');
-const {addVehicle, getVehicle, updateVehicle, deleteVehicle} = require('../controllers/vehicle');
+const {addVehicle, getVehicle, getVehicles, updateVehicle, deleteVehicle} = require('../controllers/vehicle');
 const {addOwn, getOwn} = require('../controllers/user_owns');
 const {addCard, getCard, getCards, updateCard, deleteCard} = require('../controllers/cards');
 const {addFavorite, getFavorites, deleteFavorite} = require('../controllers/favorites');
@@ -61,6 +61,7 @@ router.get('/purchase/:id', getPurchase);
 
 //Rutas para los vehiculos
 router.get('/vehicle/:id', getVehicle);
+router.get('/vehicle', getVehicles);
 router.post('/vehicle', addVehicle);
 router.put('/vehicle/:id', updateVehicle);
 router.delete('/vehicle/:id', deleteVehicle)

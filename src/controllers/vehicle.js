@@ -25,6 +25,18 @@ const getVehicle = async (req, res) => {
     }
 }
 
+const getVehicles = async (req, res) => {
+    const connection = await connect();
+
+    try{
+        const [rows] = await connection.query(`SELECT * FROM VEHICLES`, [req.params.id]);
+        res.json(rows);
+    }
+    catch(e){
+        res.json(e)
+    }
+}
+
 const updateVehicle = async (req, res) => {
     const connection = await connect();
     const {name, branch, year} = req.body
@@ -55,4 +67,4 @@ const deleteVehicle = async (req, res) => {
     }
 }
 
-module.exports = {addVehicle, getVehicle, updateVehicle, deleteVehicle};
+module.exports = {addVehicle, getVehicle, getVehicles, updateVehicle, deleteVehicle};
