@@ -5,7 +5,7 @@ const addP_product = async (req, res) => {
     const {id_pu, id_p, quantity} = req.body
 
     try{
-        const [rows] = await connection.query(`INSERT INTO PURCHASE_PRODUCTS VALUES (NULL, ${id_pu}, ${id_p}, ${quantity}, CURRENT_DATE())`);
+        const [rows] = await connection.query(`INSERT INTO PURCHASE_PRODUCTS VALUES (NULL, ${id_pu}, ${id_p}, ${quantity})`);
         res.json({id:rows.id, ... req.body});
     }
     catch(e){
@@ -17,7 +17,7 @@ const getP_product = async (req, res) => {
     const connection = await connect();
 
     try{
-        const [rows] = await connection.query(`SELECT P.NAME "PRODUCT", P.IMAGE, PP.QUANTITY, PU.TOTAL, PP.DATE FROM PURCHASE_PRODUCTS PP JOIN PRODUCTS P ON PP.ID_PRODUCT = P.ID JOIN PURCHASES PU ON PU.ID = PP.ID_PURCHASES AND PU.ID_USER = ?`, [req.params.id]);
+        const [rows] = await connection.query(`SELECT P.NAME "PRODUCT", P.IMAGE, PP.QUANTITY, PU.TOTAL, PU.DATE FROM PURCHASE_PRODUCTS PP JOIN PRODUCTS P ON PP.ID_PRODUCT = P.ID JOIN PURCHASES PU ON PU.ID = PP.ID_PURCHASES AND PU.ID_USER = ?`, [req.params.id]);
         res.json(rows)
     }
     catch(e){
